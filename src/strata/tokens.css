@@ -1,0 +1,125 @@
+/* Generated from strata-tokens.json by `pnpm --filter @cortex/strata tokens`. Do not edit by hand. */
+
+:root,
+[data-theme='night'] {
+  color-scheme: dark;
+  --ground: #131416;
+  --layer-1: #1B1C1F;
+  --layer-2: #24262A;
+  --line: #2E3035;
+  --line-control: #6A6E76;
+  --text: #EDECE8;
+  --text-2: #B2B3AE;
+  --text-3: #8E8F8A;
+  --action: #EDECE8;
+  --on-action: #131416;
+  --focus: #EDECE8;
+  --stratum-1: #BF8532;
+  --stratum-2: #4B7BC0;
+  --stratum-3: #57A45B;
+  --stratum-4: #9358AC;
+  --stratum-5: #12A7A7;
+  --on-stratum: #1A1407;
+  --stratum-wash-1: #392D1C;
+  --danger: #E5786D;
+  --settled: #8E8F8A;
+  /* Night layers separate by value; Day adds a line border to layer-1. */
+  --panel-border: transparent;
+}
+
+[data-theme='day'] {
+  color-scheme: light;
+  --ground: #F2F0EB;
+  --layer-1: #FAF9F6;
+  --layer-2: #FFFFFF;
+  --line: #E4E0D8;
+  --line-control: #8C877C;
+  --text: #1A1917;
+  --text-2: #4D4A44;
+  --text-3: #6B675F;
+  --action: #1A1917;
+  --on-action: #FAF9F6;
+  --focus: #1A1917;
+  --stratum-1: #B97515;
+  --stratum-2: #1D5CAA;
+  --stratum-3: #25984D;
+  --stratum-4: #7D318E;
+  --stratum-5: #00939A;
+  --on-stratum: #FFFFFF;
+  --stratum-wash-1: #F0E4D2;
+  --danger: #B3392E;
+  --settled: #6B675F;
+  --panel-border: #E4E0D8;
+}
+
+@theme inline {
+  --color-page: var(--ground);
+  --color-panel: var(--layer-1);
+  --color-inset: var(--layer-2);
+  --color-line: var(--line);
+  --color-edge: var(--line-control);
+  --color-ink: var(--text);
+  --color-muted: var(--text-2);
+  --color-faint: var(--text-3);
+  --color-action: var(--action);
+  --color-on-action: var(--on-action);
+  --color-focus: var(--focus);
+  --color-ochre: var(--stratum-1);
+  --color-slate: var(--stratum-2);
+  --color-lichen: var(--stratum-3);
+  --color-heather: var(--stratum-4);
+  --color-glacier: var(--stratum-5);
+  --color-on-stratum: var(--on-stratum);
+  --color-wash: var(--stratum-wash-1);
+  --color-danger: var(--danger);
+  --color-settled: var(--settled);
+  --color-panel-border: var(--panel-border);
+}
+
+@theme {
+  --font-display: var(--strata-font-display, "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif);
+  --font-sans: var(--strata-font-text, "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif);
+  --text-display-xl: 64px;
+  --text-display-xl--line-height: 64px;
+  --text-display-xl--letter-spacing: -0.03em;
+  --text-display-xl--font-weight: 600;
+  --text-display-l: 44px;
+  --text-display-l--line-height: 46px;
+  --text-display-l--letter-spacing: -0.03em;
+  --text-display-l--font-weight: 600;
+  --text-display-m: 32px;
+  --text-display-m--line-height: 36px;
+  --text-display-m--letter-spacing: -0.02em;
+  --text-display-m--font-weight: 600;
+  --text-title: 22px;
+  --text-title--line-height: 28px;
+  --text-title--letter-spacing: -0.015em;
+  --text-title--font-weight: 600;
+  --text-numeral: 40px;
+  --text-numeral--line-height: 40px;
+  --text-numeral--letter-spacing: -0.02em;
+  --text-numeral--font-weight: 600;
+  --text-body-l: 19px;
+  --text-body-l--line-height: 30px;
+  --text-body-l--letter-spacing: 0;
+  --text-body-l--font-weight: 400;
+  --text-body: 15px;
+  --text-body--line-height: 23px;
+  --text-body--letter-spacing: 0;
+  --text-body--font-weight: 400;
+  --text-label: 14px;
+  --text-label--line-height: 20px;
+  --text-label--letter-spacing: 0;
+  --text-label--font-weight: 600;
+  --text-caption: 13px;
+  --text-caption--line-height: 18px;
+  --text-caption--letter-spacing: 0;
+  --text-caption--font-weight: 400;
+  --radius-s: 6px;
+  --radius-m: 12px;
+  --radius-l: 20px;
+  --radius-pill: 999px;
+  --opacity-settled: 0.45;
+  --opacity-disabled: 0.4;
+}
+

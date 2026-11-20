@@ -1,0 +1,56 @@
+/* Strata, vendored from the Cortex repo (packages/design/strata). Tokens are unchanged. */
+@import 'tailwindcss';
+@import '../strata/tokens.css';
+@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource-variable/hanken-grotesk';
+
+@source '../strata/components';
+
+@theme {
+  --font-display: 'Bricolage Grotesque Variable', 'Helvetica Neue', Arial, sans-serif;
+  --font-sans: 'Hanken Grotesk Variable', 'Helvetica Neue', Arial, sans-serif;
+  --ease-settle: cubic-bezier(0.2, 0, 0, 1);
+  --animate-settle: st-settle 240ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+
+@keyframes st-settle {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@layer base {
+  html {
+    background: var(--ground);
+    color: var(--text);
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-page text-body text-ink font-sans antialiased;
+    margin: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--stratum-wash-1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
