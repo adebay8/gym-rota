@@ -77,7 +77,7 @@ export class ProgressHelpers {
             : [],
         )
       : [];
-    return { nextDayId: value.nextDayId, history, session: parseSession(value.session), log: parseLog(value.log) };
+    return { nextDayId: value.nextDayId, history, session: parseSession(value.session), log: parseLog(value.log), ...(typeof value.updatedAt === 'string' ? { updatedAt: value.updatedAt } : {}) };
   }
 
   /** The open session for this day, starting a fresh one if another day (or none) was open. */
@@ -126,10 +126,9 @@ export class ProgressHelpers {
     while (sets.length > 0 && sets.at(-1) === null) sets.pop();
     const others = sessions.filter((logged) => logged.sessionId !== session.startedAt);
     const effort = existing?.effort;
-    const updated: LoggedExercise[] = sets.length === 0 ? others : [{ sessionId: session.startedAt, dayId: address.dayId, loggedAt: now.toISOString(), sets, ...(effort ? { effort } : {}) }, ...others];
-    const log = { ...progress.log, [address.exerciseId]: updated.slice(0, LOG_LIMIT_PER_EXERCISE) };
-    if (updated.length === 0) delete log[address.exerciseId];
-    return { ...progress, log };
+    // An emptied entry is kept (with no sets) rather than removed, so a sync carries the untick to other devices.
+    const updated: LoggedExercise[] = [{ sessionId: session.startedAt, dayId: address.dayId, loggedAt: now.toISOString(), sets, ...(effort ? { effort } : {}) }, ...others];
+    return { ...progress, log: { ...progress.log, [address.exerciseId]: updated.slice(0, LOG_LIMIT_PER_EXERCISE) } };
   }
 
   /** How the last set felt. Tapping the same answer again clears it. */
@@ -171,9 +170,10 @@ export class ProgressHelpers {
       const index = sessions.findIndex((logged) => logged.sessionId === sessionId);
       const logged = sessions[index];
       if (!logged) continue;
+      const earlier = sessions.slice(index + 1).filter((other) => other.sets.some((set) => set !== null));
       volumeKg += ProgressionHelpers.volumeKg(logged.sets);
       sets += logged.sets.filter((set) => set !== null).length;
-      if (ProgressionHelpers.newBests(logged.sets, sessions.slice(index + 1)).length > 0) newBests += 1;
+      if (ProgressionHelpers.newBests(logged.sets, earlier).length > 0) newBests += 1;
     }
     return { volumeKg, sets, newBests };
   }
@@ -213,7 +213,7 @@ export class ProgressHelpers {
   }
 
   static hasAnyLog(progress: Progress): boolean {
-    return Object.keys(progress.log).length > 0;
+    return Object.values(progress.log).some((sessions) => sessions.some((logged) => logged.sets.some((set) => set !== null)));
   }
 
   /** "today", "yesterday", "3 days ago", or "12 Nov". */

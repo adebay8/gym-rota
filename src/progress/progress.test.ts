@@ -63,7 +63,8 @@ describe('logging sets', () => {
     const edited = ProgressHelpers.draftSet(ticked, BENCH, { weightKg: 60, reps: 9 }, NOW);
     expect(edited.log['smith-bench-press']?.[0]?.sets[0]?.reps).toBe(9);
     const unticked = ProgressHelpers.unlogSet(edited, BENCH, NOW);
-    expect(unticked.log['smith-bench-press']).toBeUndefined();
+    expect(unticked.log['smith-bench-press']?.[0]?.sets).toEqual([]);
+    expect(ProgressHelpers.lastLogged(ProgressHelpers.finish(unticked, 1, NOW), 'smith-bench-press')).toBeUndefined();
     expect(ProgressHelpers.entry(unticked, 1, 'set:smith-bench-press:0')).toEqual({ weightKg: 60, reps: 9 });
   });
 

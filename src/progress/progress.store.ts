@@ -37,14 +37,14 @@ function subscribe(listener: () => void): () => void {
 export function useProgress(): readonly [Progress | null, (change: (progress: Progress) => Progress) => void] {
   const progress = useSyncExternalStore(subscribe, readSnapshot, () => null);
   const update = useCallback((change: (progress: Progress) => Progress) => {
-    const next = change(readSnapshot());
+    const next = { ...change(readSnapshot()), updatedAt: new Date().toISOString() };
     window.localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(next));
     for (const listener of listeners) listener();
   }, []);
   return [progress, update] as const;
 }
 
-/** Replace everything stored (restoring a backup). */
+/** Replace everything stored (restoring a backup, or taking the merged copy from a sync). */
 export function replaceProgress(progress: Progress): void {
   window.localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(progress));
   for (const listener of listeners) listener();
@@ -52,4 +52,17 @@ export function replaceProgress(progress: Progress): void {
 
 export function readProgressJson(): string {
   return window.localStorage.getItem(PROGRESS_STORAGE_KEY) ?? JSON.stringify(EMPTY_PROGRESS);
+}
+
+/** The current stored copy, outside React (for the sync agent). */
+export function readProgress(): Progress {
+  return ProgressHelpers.parse(window.localStorage.getItem(PROGRESS_STORAGE_KEY));
+}
+
+/** Calls back after every local change, in this tab. */
+export function onProgressChange(listener: () => void): () => void {
+  listeners.add(listener);
+  return () => {
+    listeners.delete(listener);
+  };
 }

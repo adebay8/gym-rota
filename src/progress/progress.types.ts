@@ -52,6 +52,8 @@ export interface Progress {
   readonly session: OpenSession | null;
   /** Newest first, by exercise id. Written the moment a set is ticked, so nothing waits on "Finish". */
   readonly log: Readonly<Record<string, readonly LoggedExercise[]>>;
+  /** ISO timestamp of the last change on any device; decides whose rotation and open session win in a sync. */
+  readonly updatedAt?: string;
 }
 
 export interface SetAddress {

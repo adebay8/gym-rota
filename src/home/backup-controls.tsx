@@ -6,8 +6,9 @@ import type React from 'react';
 import { ProgressHelpers } from '../progress/progress.helpers.ts';
 import { readProgressJson, replaceProgress } from '../progress/progress.store.ts';
 import { Button } from '../strata/components/button.tsx';
+import { SyncSettings } from '../sync/sync-settings.tsx';
 
-/** The log lives only in this browser, so offer a file to keep and a way to bring it back (new phone, cleared Safari). */
+/** Sync to MongoDB, plus a backup file as a fallback (new phone, cleared Safari, no database). */
 export function BackupControls(): React.JSX.Element {
   const fileInput = useRef<HTMLInputElement>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -46,7 +47,8 @@ export function BackupControls(): React.JSX.Element {
       <h2 id="backup-heading" className="m-0 text-title">
         Your log
       </h2>
-      <p className="m-0 text-body text-muted">It’s stored in this browser only. Save a backup now and then, and restore it on a new phone.</p>
+      <p className="m-0 text-body text-muted">It’s saved on this phone first, so logging works with no signal. Sync it to your database, or keep a backup file.</p>
+      <SyncSettings />
       <div className="flex flex-wrap gap-3">
         <Button onClick={download}>Save backup</Button>
         <Button onClick={() => fileInput.current?.click()}>Restore backup</Button>

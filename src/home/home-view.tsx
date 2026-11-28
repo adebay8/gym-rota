@@ -111,7 +111,7 @@ export function HomeView(): React.JSX.Element {
       {progress && <BackupControls />}
 
       <footer className="border-t border-line pt-4 text-caption text-faint">
-        Your log is saved on this phone only. Exercise pictures from{' '}
+        Your log is saved on this phone, and in your database once sync is connected. Exercise pictures from{' '}
         <a href="https://github.com/yuhonas/free-exercise-db" className="underline underline-offset-3 hover:text-ink">
           free-exercise-db
         </a>{' '}

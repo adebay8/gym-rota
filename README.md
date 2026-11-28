@@ -2,7 +2,7 @@
 
 A four-day gym rotation. Push, pull, legs, full body, done in order whenever you train. For each day the app shows the warm-up, then the exercises with pictures, sets and rest. Tick sets as you go. A rest timer starts when you tick a set, and finishing a day moves you on to the next one.
 
-It's a static Next.js site, styled with the Strata design system (copied from the Cortex repo). Progress is kept in the browser's localStorage. There are no accounts and no server.
+It's a Next.js app on Vercel, styled with the Strata design system (copied from the Cortex repo). Your log is saved on the phone first (localStorage), so it works with no signal. It syncs to your MongoDB through one API route, `/api/progress`, whenever you're online.
 
 ## The program
 
@@ -22,7 +22,7 @@ Heaviest first. Each set goes as hard as you can, up to 10 reps. A three-day pus
 - **Double progression.** Keep the weight and add reps until every set reaches 10, then go up the smallest step: +2 kg per dumbbell, +2.5 kg on cables and the EZ bar, +5 kg on machines and the Smith. Bodyweight moves add reps, then a light dumbbell. The rules are in `src/progression/`.
 - **How did the last set feel?** After the last set, one optional tap: **Easy** (3 or more reps left), **Hard** (1–2 left) or **All out** (nothing left). This is the reps-in-reserve scale (Zourdos et al. 2016, Helms et al. 2016). Easy at 10 on every set earns a double jump. Easy and close to 10 moves up early. All out below 6 reps steps back a little.
 - **Something to beat.** Each exercise shows its volume (kg × reps, added up over the sets) against last time, a "New best set" note when a set beats your previous best (compared by estimated one-rep max), and its recent history. The home page sums up the last session.
-- **Your log stays on the phone.** It lives in this browser's storage and is written the moment you tick a set. **Save backup** and **Restore backup** on the home page move it to a new phone.
+- **Saved on the phone, synced to MongoDB.** Each set is written to the phone the moment you tick it, then synced in the background (after a 2-second pause, when the app comes back to the front, and when you're back online). The server merges rather than overwrites, so a phone and a laptop can't wipe each other's sets. **Save backup** and **Restore backup** on the home page are a fallback.
 
 ## Develop
 
@@ -33,20 +33,19 @@ npm run dev
 
 `npm test` runs the unit tests and `npm run typecheck` checks types.
 
-## Deploy (Cloudflare Workers)
+## Deploy (Vercel)
 
-The site builds to static files in `out/` (`output: 'export'` in `next.config.ts`), and `wrangler.jsonc` tells Cloudflare to serve that folder.
+1. vercel.com → Add New → Project → import `adebay8/gym-rota`. The Next.js defaults are right.
+2. Add environment variables (Settings → Environment Variables), then deploy:
+   - `MONGO_URI`: your Atlas connection string (the same cluster as your other projects is fine).
+   - `ROTA_SYNC_KEY`: a long random key that protects the API. Make one with `openssl rand -base64 32`.
+   - `MONGO_DB` (optional): the database name, `rota` by default. Everything is one document in its `progress` collection.
+3. Atlas → Network Access must allow Vercel. Vercel has no fixed IP addresses, so this means `0.0.0.0/0`, the same setting a Vercel-hosted project needs anyway.
+4. Open the site on your phone, scroll to **Your log**, paste the sync key, and tap **Connect**.
 
-In Cloudflare: Workers & Pages → Create → import `adebay8/gym-rota`, then:
+Every push to `main` redeploys. On your phone, open the site in Safari → Share → Add to Home Screen.
 
-- Project name: `gym-rota`
-- Build command: `npm run build`
-- Deploy command: `npx wrangler deploy`
-- Preview command: leave Cloudflare's default
-
-Every push to `main` redeploys. To try the Cloudflare setup locally: `npm run build && npx wrangler dev`.
-
-On your phone, open the site in Safari → Share → Add to Home Screen.
+To run the API locally, put `MONGO_URI` and `ROTA_SYNC_KEY` in `.env.local` (gitignored) and run `npm run dev`.
 
 ## Credits
 

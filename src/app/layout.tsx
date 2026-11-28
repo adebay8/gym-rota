@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import type React from 'react';
 
+import { SyncAgent } from '../sync/sync-agent.tsx';
+
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -30,7 +32,10 @@ export default function RootLayout({ children }: { readonly children: React.Reac
       <head>
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <SyncAgent />
+      </body>
     </html>
   );
 }
