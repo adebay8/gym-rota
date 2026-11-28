@@ -43,3 +43,13 @@ export function useProgress(): readonly [Progress | null, (change: (progress: Pr
   }, []);
   return [progress, update] as const;
 }
+
+/** Replace everything stored (restoring a backup). */
+export function replaceProgress(progress: Progress): void {
+  window.localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(progress));
+  for (const listener of listeners) listener();
+}
+
+export function readProgressJson(): string {
+  return window.localStorage.getItem(PROGRESS_STORAGE_KEY) ?? JSON.stringify(EMPTY_PROGRESS);
+}

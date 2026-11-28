@@ -1,6 +1,10 @@
 import type { Stratum } from '../strata/components/components.types.ts';
+import type { LOADS } from './program.constants.ts';
 
 export type DayId = 1 | 2 | 3 | 4;
+
+/** How the weight is added, which sets the smallest sensible jump. */
+export type Load = (typeof LOADS)[keyof typeof LOADS];
 
 /** One picture pair from free-exercise-db: `0.jpg` is the start position, `1.jpg` the end. */
 export interface Pictures {
@@ -23,6 +27,7 @@ export interface Exercise {
   readonly name: string;
   /** The machine or kit, in the words you'd use in the gym. */
   readonly kit: string;
+  readonly load: Load;
   readonly sets: number;
   readonly repsMax: number;
   readonly restSeconds: number;

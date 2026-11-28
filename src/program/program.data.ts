@@ -18,6 +18,7 @@ export const PROGRAM: readonly TrainingDay[] = [
     exercises: [
       {
         id: 'smith-bench-press',
+        load: 'smith',
         name: 'Smith machine bench press',
         kit: 'Smith machine and a flat bench',
         sets: 3,
@@ -30,6 +31,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'incline-dumbbell-press',
+        load: 'dumbbell',
         name: 'Incline dumbbell press',
         kit: 'Dumbbells and an adjustable bench at about 30°',
         sets: 3,
@@ -42,6 +44,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'machine-shoulder-press',
+        load: 'machine',
         name: 'Shoulder press machine',
         kit: 'Shoulder press machine',
         sets: 3,
@@ -54,6 +57,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'dips',
+        load: 'bodyweight',
         name: 'Dips',
         kit: 'Dip and pull-up station',
         sets: 3,
@@ -66,6 +70,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'pec-deck',
+        load: 'machine',
         name: 'Chest fly machine',
         kit: 'The chest machine you squeeze inwards (pec deck)',
         sets: 3,
@@ -78,6 +83,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'lateral-raise',
+        load: 'dumbbell',
         name: 'Dumbbell lateral raise',
         kit: 'A pair of light dumbbells',
         sets: 3,
@@ -90,6 +96,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'rope-pushdown',
+        load: 'cable',
         name: 'Rope triceps pushdown',
         kit: 'Two-pole cable machine, rope, pulley at the top',
         sets: 3,
@@ -101,7 +108,8 @@ export const PROGRAM: readonly TrainingDay[] = [
         pictures: { folder: 'Triceps_Pushdown_-_Rope_Attachment' },
       },
       {
-        id: 'overhead-rope-extension-push',
+        id: 'overhead-rope-extension',
+        load: 'cable',
         name: 'Overhead rope extension',
         kit: 'Two-pole cable machine, rope, pulley at the bottom',
         sets: 2,
@@ -124,6 +132,7 @@ export const PROGRAM: readonly TrainingDay[] = [
     exercises: [
       {
         id: 'pull-ups',
+        load: 'bodyweight',
         name: 'Pull-ups',
         kit: 'Dip and pull-up station',
         sets: 3,
@@ -136,6 +145,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'chest-supported-row',
+        load: 'dumbbell',
         name: 'Chest-supported dumbbell row',
         kit: 'Dumbbells and an adjustable bench at about 30°',
         sets: 3,
@@ -148,6 +158,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'close-grip-pulldown',
+        load: 'machine',
         name: 'Close-grip lat pulldown',
         kit: 'Lat pulldown machine with the close (V) handle',
         sets: 3,
@@ -160,6 +171,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'pullover-machine',
+        load: 'machine',
         name: 'Pullover machine',
         kit: 'The machine that only pulls straight arms down to your sides',
         sets: 3,
@@ -172,6 +184,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'face-pull',
+        load: 'cable',
         name: 'Face pull',
         kit: 'Two-pole cable machine, rope, pulley at head height',
         sets: 3,
@@ -184,6 +197,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'reverse-pec-deck',
+        load: 'machine',
         name: 'Reverse fly machine',
         kit: 'The chest fly machine (pec deck), sitting facing the pad',
         sets: 3,
@@ -196,6 +210,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'preacher-curl',
+        load: 'ezBar',
         name: 'EZ-bar preacher curl',
         kit: 'Preacher curl bench and the EZ curl bar',
         sets: 3,
@@ -208,6 +223,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'hammer-curl',
+        load: 'dumbbell',
         name: 'Hammer curl',
         kit: 'A pair of dumbbells',
         sets: 3,
@@ -230,6 +246,7 @@ export const PROGRAM: readonly TrainingDay[] = [
     exercises: [
       {
         id: 'smith-squat',
+        load: 'smith',
         name: 'Smith machine squat',
         kit: 'Smith machine',
         sets: 3,
@@ -242,6 +259,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'leg-press',
+        load: 'machine',
         name: 'Leg press',
         kit: 'Leg press machine',
         sets: 3,
@@ -254,6 +272,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'dumbbell-rdl',
+        load: 'dumbbell',
         name: 'Dumbbell Romanian deadlift',
         kit: 'A pair of heavy dumbbells',
         sets: 3,
@@ -266,6 +285,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'walking-lunge',
+        load: 'dumbbell',
         name: 'Dumbbell walking lunge',
         kit: 'A pair of dumbbells and some floor space',
         sets: 2,
@@ -279,6 +299,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'leg-extension',
+        load: 'machine',
         name: 'Leg extension',
         kit: 'Leg extension machine',
         sets: 3,
@@ -291,6 +312,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'leg-curl',
+        load: 'machine',
         name: 'Leg curl',
         kit: 'Leg curl machine',
         sets: 3,
@@ -303,6 +325,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'leg-press-calf',
+        load: 'machine',
         name: 'Calf press on the leg press',
         kit: 'Leg press machine',
         sets: 3,
@@ -315,6 +338,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'hanging-knee-raise',
+        load: 'bodyweight',
         name: 'Knee raise on the dip station',
         kit: 'Dip and pull-up station (the forearm pads)',
         sets: 3,
@@ -337,6 +361,7 @@ export const PROGRAM: readonly TrainingDay[] = [
     exercises: [
       {
         id: 'smith-rdl',
+        load: 'smith',
         name: 'Smith machine Romanian deadlift',
         kit: 'Smith machine',
         sets: 3,
@@ -349,6 +374,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'machine-chest-press',
+        load: 'machine',
         name: 'Chest press machine',
         kit: 'Chest press machine (the one you push outwards)',
         sets: 3,
@@ -361,6 +387,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'wide-pulldown',
+        load: 'machine',
         name: 'Wide-grip lat pulldown',
         kit: 'Lat pulldown machine with the long bar',
         sets: 3,
@@ -373,6 +400,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'bulgarian-split-squat',
+        load: 'dumbbell',
         name: 'Bulgarian split squat',
         kit: 'A pair of dumbbells and a flat bench',
         sets: 3,
@@ -386,6 +414,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'one-arm-row',
+        load: 'dumbbell',
         name: 'One-arm dumbbell row',
         kit: 'A heavy dumbbell and a flat bench',
         sets: 3,
@@ -399,6 +428,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'cable-lateral-raise',
+        load: 'cable',
         name: 'Cable lateral raise',
         kit: 'Two-pole cable machine, handle, pulley at the bottom',
         sets: 3,
@@ -412,6 +442,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'incline-curl',
+        load: 'dumbbell',
         name: 'Incline dumbbell curl',
         kit: 'A pair of dumbbells and an adjustable bench at about 45°',
         sets: 2,
@@ -424,6 +455,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'overhead-rope-extension',
+        load: 'cable',
         name: 'Overhead rope extension',
         kit: 'Two-pole cable machine, rope, pulley at the bottom',
         sets: 2,
@@ -436,6 +468,7 @@ export const PROGRAM: readonly TrainingDay[] = [
       },
       {
         id: 'cable-crunch',
+        load: 'cable',
         name: 'Cable crunch',
         kit: 'Two-pole cable machine, rope, pulley at the top',
         sets: 2,

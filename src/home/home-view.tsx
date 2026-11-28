@@ -12,13 +12,15 @@ import { Layer, Rows } from '../strata/components/layer.tsx';
 import { StateMark } from '../strata/components/state-mark.tsx';
 import { Swatch } from '../strata/components/swatch.tsx';
 import { cn } from '../strata/class-names.helpers.ts';
+import { BackupControls } from './backup-controls.tsx';
+import { LastSession } from './last-session.tsx';
 
 const PRIMARY_LINK = 'inline-flex min-h-11 w-full items-center justify-center rounded-pill border border-action bg-action px-[18px] text-label text-on-action hover:opacity-90 sm:w-auto';
 
 const TRAINING_RULES = [
   { title: 'Heaviest first.', text: 'The big lifts open each day while you are fresh. Smaller, single-joint moves come last.' },
   { title: 'Every set hard.', text: 'Up to 10 reps, as many as you can with good form. Stopping at 6, 7 or 8 is fine if that is where it gets hard.' },
-  { title: 'Go up when you hit 10.', text: 'When you get 10 clean reps on every set, use a heavier weight next time.' },
+  { title: 'Go up when you hit 10.', text: 'When you get 10 clean reps on every set, use a heavier weight next time. The app works this out from your log.' },
   { title: 'Rest as shown.', text: 'About 2–3 min on big lifts and 1–1½ min on small ones, so the next set can be hard too.' },
   { title: 'Short on time?', text: 'Do 2 sets instead of 3 on the last few exercises. Never skip the warm-up.' },
 ] as const;
@@ -50,11 +52,7 @@ export function HomeView(): React.JSX.Element {
         <Link href={`/day/${focusDay.id}/`} className={PRIMARY_LINK}>
           {openSession ? `Resume day ${focusDay.id}` : `Start day ${focusDay.id}`}
         </Link>
-        {lastSession && (
-          <p className="m-0 text-caption text-faint">
-            Last session: day {lastSession.dayId}, {ProgramHelpers.findDay(lastSession.dayId).name.toLowerCase()}, {ProgressHelpers.describeWhen(lastSession.finishedAt, now)}.
-          </p>
-        )}
+        {lastSession && progress && <LastSession progress={progress} session={lastSession} now={now} />}
       </section>
 
       <section aria-labelledby="days-heading" className="flex flex-col gap-3">
@@ -107,11 +105,13 @@ export function HomeView(): React.JSX.Element {
             </li>
           ))}
         </ul>
-        <p className="m-0 text-caption text-faint">No weights are prescribed: pick what lets you reach close to 10 with good form, and adjust from there.</p>
+        <p className="m-0 text-caption text-faint">The first time, pick a weight you can lift 6–10 times. After that, log your sets and the app suggests the next weight: same weight until every set reaches 10, then the smallest step up. Tell it how the last set felt and it adjusts.</p>
       </section>
 
+      {progress && <BackupControls />}
+
       <footer className="border-t border-line pt-4 text-caption text-faint">
-        Progress is saved on this phone only. Exercise pictures from{' '}
+        Your log is saved on this phone only. Exercise pictures from{' '}
         <a href="https://github.com/yuhonas/free-exercise-db" className="underline underline-offset-3 hover:text-ink">
           free-exercise-db
         </a>{' '}
