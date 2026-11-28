@@ -80,9 +80,9 @@ describe('logging sets', () => {
 
   it('records and clears how a set felt', () => {
     const ticked = ProgressHelpers.logSet(EMPTY_PROGRESS, BENCH, { weightKg: 60, reps: 10 }, NOW);
-    const easy = ProgressHelpers.setEffort(ticked, 1, 'smith-bench-press', 'easy');
+    const easy = ProgressHelpers.setEffort(ticked, 1, 'smith-bench-press', 'easy', NOW);
     expect(ProgressHelpers.effort(easy, 1, 'smith-bench-press')).toBe('easy');
-    expect(ProgressHelpers.effort(ProgressHelpers.setEffort(easy, 1, 'smith-bench-press', 'easy'), 1, 'smith-bench-press')).toBeUndefined();
+    expect(ProgressHelpers.effort(ProgressHelpers.setEffort(easy, 1, 'smith-bench-press', 'easy', NOW), 1, 'smith-bench-press')).toBeUndefined();
   });
 
   it('reads storage from before logging existed', () => {

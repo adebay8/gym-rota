@@ -132,13 +132,14 @@ export class ProgressHelpers {
   }
 
   /** How the last set felt. Tapping the same answer again clears it. */
-  static setEffort(progress: Progress, dayId: DayId, exerciseId: string, effort: Effort): Progress {
+  static setEffort(progress: Progress, dayId: DayId, exerciseId: string, effort: Effort, now: Date): Progress {
     const sessionId = progress.session?.dayId === dayId ? progress.session.startedAt : undefined;
     const sessions = progress.log[exerciseId];
     if (!sessionId || !sessions) return progress;
     const updated = sessions.map((logged) => {
       if (logged.sessionId !== sessionId) return logged;
-      const { effort: previous, ...rest } = logged;
+      // A new loggedAt so the choice wins when another copy of this session is merged in.
+      const { effort: previous, ...rest } = { ...logged, loggedAt: now.toISOString() };
       return previous === effort ? rest : { ...rest, effort };
     });
     return { ...progress, log: { ...progress.log, [exerciseId]: updated } };

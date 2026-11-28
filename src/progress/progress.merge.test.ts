@@ -42,4 +42,32 @@ describe('merging two copies of the log', () => {
     const progress = { ...ProgressHelpers.logSet(EMPTY_PROGRESS, bench(0), { weightKg: 60, reps: 10 }, MONDAY), updatedAt: MONDAY.toISOString() };
     expect(ProgressMerge.isSame(ProgressMerge.merge(progress, progress), progress)).toBe(true);
   });
+
+  it('keeps the rotation when a fresh browser (starting at day 1) is newer', () => {
+    // The main phone finished days 1-3, so day 4 is next.
+    let phone = EMPTY_PROGRESS;
+    for (const [dayId, date] of [[1, '2026-11-20'], [2, '2026-11-22'], [3, '2026-11-24']] as const) phone = ProgressHelpers.finish(phone, dayId, new Date(`${date}T18:00:00Z`));
+    phone = { ...phone, updatedAt: '2026-11-24T18:00:00Z' };
+    expect(phone.nextDayId).toBe(4);
+    // A new browser: day 1, nothing finished, but one tap made it the newest copy.
+    const fresh = { ...ProgressHelpers.toggle(EMPTY_PROGRESS, 1, 'warmup:rower', TUESDAY), updatedAt: '2026-11-28T10:00:00Z' };
+    expect(ProgressMerge.merge(phone, fresh).nextDayId).toBe(4);
+    expect(ProgressMerge.merge(fresh, phone).nextDayId).toBe(4);
+  });
+
+  it('drops an open session that another device already finished', () => {
+    const started = { ...ProgressHelpers.logSet(EMPTY_PROGRESS, bench(0), { weightKg: 60, reps: 10 }, MONDAY), updatedAt: '2026-11-23T18:00:00Z' };
+    const finishedElsewhere = { ...ProgressHelpers.finish(started, 1, MONDAY), updatedAt: '2026-11-23T19:00:00Z' };
+    // The other copy still has the session open and was touched later (say, a stray tick).
+    const stale = { ...started, updatedAt: '2026-11-23T20:00:00Z' };
+    const merged = ProgressMerge.merge(finishedElsewhere, stale);
+    expect(merged.session).toBeNull();
+    expect(merged.nextDayId).toBe(2);
+  });
+
+  it('keeps how a set felt through a merge', () => {
+    const ticked = ProgressHelpers.logSet(EMPTY_PROGRESS, bench(0), { weightKg: 60, reps: 10 }, MONDAY);
+    const rated = ProgressHelpers.setEffort(ticked, 1, 'smith-bench-press', 'hard', TUESDAY);
+    expect(ProgressMerge.merge(ticked, rated).log['smith-bench-press']?.[0]?.effort).toBe('hard');
+  });
 });

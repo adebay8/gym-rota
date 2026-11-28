@@ -64,7 +64,7 @@ export function useDaySession(dayId: DayId): DaySession {
     toggleWarmup: (stepId) => update((current) => ProgressHelpers.toggle(current, dayId, ProgressHelpers.warmupKey(stepId), new Date())),
     typeSet: (exercise, setIndex, entry) => update((current) => ProgressHelpers.draftSet(current, { dayId, exerciseId: exercise.id, setIndex }, entry, new Date())),
     toggleSet,
-    chooseEffort: (exercise, effort) => update((current) => ProgressHelpers.setEffort(current, dayId, exercise.id, effort)),
+    chooseEffort: (exercise, effort) => update((current) => ProgressHelpers.setEffort(current, dayId, exercise.id, effort, new Date())),
     extendRest: (seconds) =>
       update((current) => {
         const rest = current.session?.rest;
